@@ -14,6 +14,9 @@ function App() {
     </div>
       {/* Header */}
       {/* Posts */}
+      <Post imageUrl={'https://wallpaperaccess.com/full/119615.jpg'} />
+      <Post />
+      <Post />
       <Post />
       {/* Posts */}
 
