@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post';
+import { db, auth, storage } from './firebase'
 
 function App() {
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    db.collection('posts').onSnapshot(snapshot => (
+      setPosts(snapshot.docs.map(doc => ({
+        id: doc.id,
+        post: doc.data(),
+      }))
+    )))
+  }, [])
+
   return (
     <div className="app">
-
+      {console.log(posts)}
     {/* using bem convention */}
     <div className="app__header">
       <img className="app__headerImage" 
@@ -13,12 +26,14 @@ function App() {
         alt="insta logo"/>   
     </div>
       {/* Header */}
+
+    {posts.map(post => (
+      <Post key={post.id} username={post.post.username} caption={post.post.caption} imageUrl={post.post.imageUrl} />
+    ))}
+
       {/* Posts */}
-      <Post imageUrl={'https://wallpaperaccess.com/full/119615.jpg'} />
-      <Post />
-      <Post />
-      <Post />
-      {/* Posts */}
+      
+      {/* Comments */}
 
     </div>
   );
