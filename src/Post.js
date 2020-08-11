@@ -3,13 +3,13 @@ import "./Post.css"
 import Avatar from "@material-ui/core/Avatar"
 
 function Post(props) {
-	const { imageUrl } = props 
+	const { imageUrl, username, caption } = props 
 	return (
 		
 		<div className="post">
 			<div className="post__header">
-				<Avatar className="post__avatar" alt="George" src="/static/images/avatar/1.jpg" />
-				<h3 className="post__username">Username</h3>
+				<Avatar className="post__avatar" alt={username} src="/static/images/avatar/1.jpg" />
+				<h3 className="post__username">{username}</h3>
 			</div>
 			{/* header -> avatar + username */}
 
@@ -17,7 +17,7 @@ function Post(props) {
 				alt=""/>
 			{/* image */}
 			{/* like comment  */}
-			<h4 className="post__text"><span className="post__username">Username: </span> beach vacation</h4>
+			<h4 className="post__text"><span className="post__username">{username}: </span> {caption}</h4>
 			{/* username + caption */}
 
 		</div>
