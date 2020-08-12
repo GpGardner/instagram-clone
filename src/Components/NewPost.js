@@ -8,7 +8,7 @@ function NewPost(props) {
 	const {
     modalStyle,
 		classes,
-		username,
+		user,
 		openNewPost,
 		setOpenNewPost,
   } = props;
@@ -46,7 +46,7 @@ function NewPost(props) {
 							timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 							caption: caption,
 							imageUrl: url,
-							username: username
+							username: user.displayName
 						});
 						setProgress(0);
 						setCaption('');
@@ -59,17 +59,17 @@ function NewPost(props) {
 
 	return (
 		<div>
-			{console.log(username)}
+			{console.log(user)}
 			<Modal open={openNewPost} onClose={() => setOpenNewPost(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
             <center>
               <img
+								style={{display: 'block'}}
                 className="app__headerImage"
                 src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
                 alt="insta logo"
               />
-							<progress value={progress} max="100"/>
             </center>
 						<Input type="file" onChange={handleChange}/>
 						<Input
@@ -78,6 +78,7 @@ function NewPost(props) {
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             />
+							{progress > 0 ? <progress value={progress} max="100"/> : null}
             <Button type="submit" onClick={handleSubmitPost}>
               Submit
             </Button>
