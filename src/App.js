@@ -27,8 +27,8 @@ function App() {
     </div>
       {/* Header */}
 
-    {posts.map(post => (
-      <Post key={post.id} username={post.post.username} caption={post.post.caption} imageUrl={post.post.imageUrl} />
+    {posts.map(({id, post}) => (
+      <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
     ))}
 
       {/* Posts */}
