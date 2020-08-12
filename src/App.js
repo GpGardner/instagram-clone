@@ -108,41 +108,6 @@ function App() {
   return (
     
     <div className="app">
-      {console.log(user)}
-      <SignUp
-        openSignUp={openSignUp}
-        setOpenSignUp={setOpenSignUp}
-        modalStyle={modalStyle}
-        classes={classes}
-        email={email}
-        setEmail={setEmail}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        handleSignUp={handleSignUp}
-      />
-
-      <Login
-        openLogin={openLogin}
-        setOpenLogin={setOpenLogin}
-        modalStyle={modalStyle}
-        classes={classes}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        handleLogin={handleLogin}
-      />
-
-      <NewPost
-        user={user}
-        openNewPost={openNewPost}
-        setOpenNewPost={setOpenNewPost}
-        modalStyle={modalStyle}
-        classes={classes}
-      />
-
       {/* using bem convention */}
       <div className="app__header">
         <img
@@ -176,6 +141,40 @@ function App() {
       {/* Posts */}
 
       {/* Comments */}
+
+      <SignUp
+        openSignUp={openSignUp}
+        setOpenSignUp={setOpenSignUp}
+        modalStyle={modalStyle}
+        classes={classes}
+        email={email}
+        setEmail={setEmail}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        handleSignUp={handleSignUp}
+      />
+
+      <Login
+        openLogin={openLogin}
+        setOpenLogin={setOpenLogin}
+        modalStyle={modalStyle}
+        classes={classes}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+      />
+
+      <NewPost
+        user={user}
+        openNewPost={openNewPost}
+        setOpenNewPost={setOpenNewPost}
+        modalStyle={modalStyle}
+        classes={classes}
+      />
     </div>
   );
 }
