@@ -36,17 +36,23 @@
 	height: 32px!important;
 }
 
-.post__input { 
-	padding: 5px 16px;
-	width: 100%;
-	text-decoration: none;
-}
-
 .post__commentBar {
 	border-top: 1px solid lightgray;
+	padding: 10px;
 	display: flex;
 }
 
+.post__input { 
+	padding: 5px 16px;
+	width: 100%;
+	border: none;
+	flex: 1;
+}
+
 .post__button {
-	background-color: #fafafa;
+	flex:0;
+	border: none;
+	width: auto;
+	background-color: white;
+	color: #6082a3
 }
