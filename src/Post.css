@@ -1,6 +1,6 @@
 .post {
 	background-color: white;
-	max-width: 960px;
+	max-width: 640px;
 	border: 1px solid lightgray;
 	margin-bottom: 45px;
 }
@@ -34,4 +34,19 @@
 	margin-right: 20px;
 	width: 32px!important;
 	height: 32px!important;
+}
+
+.post__input { 
+	padding: 5px 16px;
+	width: 100%;
+	text-decoration: none;
+}
+
+.post__commentBar {
+	border-top: 1px solid lightgray;
+	display: flex;
+}
+
+.post__button {
+	background-color: #fafafa;
 }
