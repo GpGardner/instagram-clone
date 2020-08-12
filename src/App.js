@@ -7,7 +7,7 @@ import NewPost from "./Components/NewPost";
 import { db, auth, storage } from "./firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import { Button, Avatar } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 50;
@@ -117,6 +117,7 @@ function App() {
         />
         {user ? (
           <div className="app__loggedInContainer">
+            <Avatar className="app_loggedInUserAvatar" alt={user.displayName} src="/static/images/avatar/1.jpg" />
             <Button onClick={() => setOpenNewPost(true)}>New Post</Button>
             <Button onClick={() => auth.signOut()}>Log Out</Button>
           </div>
