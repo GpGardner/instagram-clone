@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
 import { Input, Avatar, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import firebase from "firebase";
 import { db } from "./firebase";
 
-function Post(props) {
-  const { imageUrl, username, caption, postId } = props;
+const useStyles = makeStyles((theme) => ({
+  postButton : {
+		color: "#6082a3",
+	}
+}));
 
-  const [comments, setComments] = useState({});
+
+function Post(props) {
+	const { imageUrl, username, caption, postId, user } = props;
+	const classes = useStyles();
+
+  const [comments, setComments] = useState([]);
   const [addComment, setAddComment] = useState("");
 
   useEffect(() => {
@@ -15,7 +25,8 @@ function Post(props) {
       unsubscribe = db
         .collection("posts")
         .doc(postId)
-        .collection("comments")
+				.collection("comments")
+				.orderBy('timestamp', 'desc')
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
         });
@@ -25,7 +36,17 @@ function Post(props) {
     };
   }, [postId]);
 
-  const postCommet = (e) => {};
+  const postComment = (e) => {
+		e.preventDefault();
+
+		db.collection("posts").doc(postId).collection('comments').add({
+			text: addComment,
+			username: user.displayName,
+			timestamp: firebase.firestore.FieldValue.serverTimestamp()
+		});
+
+		setAddComment('');
+	};
 
   return (
     <div className="post">
@@ -47,18 +68,22 @@ function Post(props) {
       </h4>
       {/* username + caption */}
 
+			{comments.map( (comment) => (
+				<p>{comment.username}: {comment.text}</p>
+			))}
+
       <form className="post__commentBar">
-        <Input
+        <input
           className="post__input"
           placeholder="Add Comment..."
           onChange={(e) => setAddComment(e.target.value)}
         />
         {addComment ? (
-          <Button className="post__button">Post</Button>
+          <button className="post__button" onClick={postComment}>Post</button>
         ) : (
-          <Button className="post__button" disabled>
+          <button className={classes.postButton} disabled>
             Post
-          </Button>
+          </button>
         )}
       </form>
     </div>
