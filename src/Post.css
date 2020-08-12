@@ -1,6 +1,6 @@
 .post {
 	background-color: white;
-	max-width: 640px;
+	max-width: 960px;
 	border: 1px solid lightgray;
 	margin-bottom: 45px;
 }
@@ -16,6 +16,8 @@
 .post__text {
 	font-weight: normal;
 	padding: 20px;
+	margin-left: 20px;
+	text-align: left;
 }
 
 .post__username {
