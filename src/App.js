@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Post from "./Post";
+import Post from "./Components/Post";
 import SignUp from "./Components/SignUp";
 import Login from "./Components/Login";
 import NewPost from "./Components/NewPost";
