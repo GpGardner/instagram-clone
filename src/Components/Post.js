@@ -3,7 +3,7 @@ import "./Post.css";
 import { Input, Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
-import { db } from "./firebase";
+import { db } from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
   postButton : {
@@ -69,21 +69,21 @@ function Post(props) {
       {/* username + caption */}
 
 			{comments.map( (comment) => (
-				<p>{comment.username}: {comment.text}</p>
+				<p className="post__comments"><span className="post_commentUser">{comment.username}</span>: {comment.text}</p>
 			))}
 
       <form className="post__commentBar">
-        <input
+        <Input
           className="post__input"
           placeholder="Add Comment..."
           onChange={(e) => setAddComment(e.target.value)}
         />
         {addComment ? (
-          <button className="post__button" onClick={postComment}>Post</button>
+          <Button className="post__button" onClick={postComment}>Post</Button>
         ) : (
-          <button className={classes.postButton} disabled>
+          <Button className={classes.postButton} disabled>
             Post
-          </button>
+          </Button>
         )}
       </form>
     </div>
