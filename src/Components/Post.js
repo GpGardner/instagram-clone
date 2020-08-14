@@ -64,12 +64,12 @@ function Post(props) {
       {/* image */}
       {/* like comment  */}
       <h4 className="post__text">
-        <span className="post__username">{username}: </span> {caption}
+        <span className="post__username">{username} </span> {caption}
       </h4>
       {/* username + caption */}
 
 			{comments.map( (comment) => (
-				<p className="post__comments"><span className="post_commentUser">{comment.username}</span>: {comment.text}</p>
+				<p className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
 			))}
 
       <form className="post__commentBar">
