@@ -59,7 +59,6 @@ function NewPost(props) {
 
 	return (
 		<div>
-			{console.log(user)}
 			<Modal open={openNewPost} onClose={() => setOpenNewPost(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="app__signup">
