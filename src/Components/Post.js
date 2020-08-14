@@ -26,7 +26,7 @@ function Post(props) {
         .collection("posts")
         .doc(postId)
 				.collection("comments")
-				.orderBy('timestamp', 'desc')
+				.orderBy('timestamp', 'asc')
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
         });
@@ -40,13 +40,14 @@ function Post(props) {
 		e.preventDefault();
 
 		db.collection("posts").doc(postId).collection('comments').add({
-			text: addComment,
+      text: addComment,
 			username: user.displayName,
 			timestamp: firebase.firestore.FieldValue.serverTimestamp()
 		});
-
-		setAddComment('');
-	};
+    setAddComment("");
+    console.log('this does run')
+  };
+  
 
   return (
     <div className="post">
@@ -67,15 +68,15 @@ function Post(props) {
         <span className="post__username">{username} </span> {caption}
       </h4>
       {/* username + caption */}
-
 			{comments.map( (comment) => (
-				<p className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
+				<p key={comment.id} className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
 			))}
 
-      <form className="post__commentBar">
+      <form className="post__commentBar" onSubmit={postComment}>
         <Input
           className="post__input"
           placeholder="Add Comment..."
+          value={addComment}
           onChange={(e) => setAddComment(e.target.value)}
         />
         {addComment ? (
