@@ -69,7 +69,7 @@ function Post(props) {
       </h4>
       {/* username + caption */}
 			{comments.map( (comment) => (
-				<p key={comment.id} className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
+				<p key={comment.timestamp} className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
 			))}
 
       <form className="post__commentBar" onSubmit={postComment}>

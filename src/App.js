@@ -4,6 +4,7 @@ import Post from "./Components/Post";
 import SignUp from "./Components/SignUp";
 import Login from "./Components/Login";
 import NewPost from "./Components/NewPost";
+import Profile from "./Components/Profile"
 import { db, auth, storage } from "./firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -44,6 +45,7 @@ function App() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openNewPost, setOpenNewPost] = useState(false);
+  const [openProfilePage, setOpenProfilePage] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -108,7 +110,6 @@ function App() {
   return (
     
     <div className="app">
-      {/* using bem convention */}
       <div className="app__header">
         <img
           className="app__headerImage"
@@ -117,7 +118,7 @@ function App() {
         />
         {user ? (
           <div className="app__loggedInContainer">
-            <Avatar className="app_loggedInUserAvatar" alt={user.displayName} src="/static/images/avatar/1.jpg" />
+            <Avatar className="app_loggedInUserAvatar" onClick={()=> setOpenProfilePage(!openProfilePage)} alt={user.displayName} src="/static/images/avatar/1.jpg" />
             <Button onClick={() => setOpenNewPost(true)}>New Post</Button>
             <Button onClick={() => auth.signOut()}>Log Out</Button>
           </div>
@@ -128,8 +129,7 @@ function App() {
           </div>
         )}
       </div>
-      {/* Header */}
-      <center>
+      {openProfilePage ? <Profile /> : <> <center>
         {posts.map(({ id, post }) => (
           <Post
             key={id}
@@ -141,9 +141,6 @@ function App() {
           />
         ))}
       </center>
-      {/* Posts */}
-
-      {/* Comments */}
 
       <SignUp
         openSignUp={openSignUp}
@@ -177,7 +174,7 @@ function App() {
         setOpenNewPost={setOpenNewPost}
         modalStyle={modalStyle}
         classes={classes}
-      />
+      /> </>}
     </div>
   );
 }
