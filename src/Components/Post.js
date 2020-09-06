@@ -3,25 +3,26 @@ import "./Post.css";
 
 import { Input, Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
 import firebase from "firebase";
 import { db } from "../firebase";
 
 const useStyles = makeStyles((theme) => ({
-  postButton : {
-		color: "#6082a3",
-	}
+  postButton: {
+    color: "#6082a3",
+  },
 }));
 
-
 function Post(props) {
-	const { imageUrl, username, caption, postId, user } = props;
-	const classes = useStyles();
+  const { imageUrl, username, caption, postId, user } = props;
+  const classes = useStyles();
 
   const [comments, setComments] = useState([]);
   const [addComment, setAddComment] = useState("");
+  const [postLiked, setPostLiked] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -29,8 +30,8 @@ function Post(props) {
       unsubscribe = db
         .collection("posts")
         .doc(postId)
-				.collection("comments")
-				.orderBy('timestamp', 'asc')
+        .collection("comments")
+        .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
         });
@@ -41,17 +42,16 @@ function Post(props) {
   }, [postId]);
 
   const postComment = (e) => {
-		e.preventDefault();
+    e.preventDefault();
 
-		db.collection("posts").doc(postId).collection('comments').add({
+    db.collection("posts").doc(postId).collection("comments").add({
       text: addComment,
-			username: user.displayName,
-			timestamp: firebase.firestore.FieldValue.serverTimestamp()
-		});
+      username: user.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
     setAddComment("");
-    console.log('this does run')
+    console.log("this does run");
   };
-  
 
   return (
     <div className="post">
@@ -66,12 +66,31 @@ function Post(props) {
       {/* header -> avatar + username */}
 
       <img className="post__image" src={imageUrl} alt="" />
+      <div className="post__icons">
+        {postLiked ? (
+          <FavoriteIcon
+            className="post__icon"
+            onClick={() => setPostLiked(false)}
+            style={{ color: 'red' }}
+          />
+        ) : (
+          <FavoriteBorderIcon
+            className="post__icon"
+            onClick={() => setPostLiked(true)}
+          />
+        )}
+        <ChatBubbleOutlineIcon className="post__icon"/>
+        <ShareOutlinedIcon className="post__icon" />
+      </div>
       <h4 className="post__text">
         <span className="post__username">{username} </span> {caption}
       </h4>
-			{comments.map( (comment) => (
-				<p key={comment.timestamp} className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
-			))}
+      {comments.map((comment) => (
+        <p key={comment.timestamp} className="post__comments">
+          <span className="post__username">{comment.username}</span>{" "}
+          {comment.text}
+        </p>
+      ))}
 
       <form className="post__commentBar" onSubmit={postComment}>
         <Input
@@ -81,7 +100,9 @@ function Post(props) {
           onChange={(e) => setAddComment(e.target.value)}
         />
         {addComment ? (
-          <Button className="post__button" onClick={postComment}>Post</Button>
+          <Button className="post__button" onClick={postComment}>
+            Post
+          </Button>
         ) : (
           <Button className={classes.postButton} disabled>
             Post

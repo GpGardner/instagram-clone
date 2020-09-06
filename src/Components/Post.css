@@ -13,6 +13,18 @@
 
 }
 
+.post__icons {
+	display: flex;
+	justify-items: start;
+	margin-left: 15px;
+}
+
+.post__icon {
+	margin-left: 5px;
+}
+
+
+
 .post__text {
 	font-weight: normal;
 	padding: 20px;
