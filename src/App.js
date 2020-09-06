@@ -107,6 +107,13 @@ function App() {
     setOpenLogin(false);
   };
 
+  const handleSignOut = () => {
+    if(openProfilePage){
+      setOpenProfilePage(false);
+    }
+    auth.signOut();
+  }
+
   return (
     
     <div className="app">
@@ -120,7 +127,7 @@ function App() {
           <div className="app__loggedInContainer">
             <Avatar className="app_loggedInUserAvatar" onClick={()=> setOpenProfilePage(!openProfilePage)} alt={user.displayName} src="/static/images/avatar/1.jpg" />
             <Button onClick={() => setOpenNewPost(true)}>New Post</Button>
-            <Button onClick={() => auth.signOut()}>Log Out</Button>
+            <Button onClick={() => handleSignOut()}>Log Out</Button>
           </div>
         ) : (
           <div className="loginContainer">
