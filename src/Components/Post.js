@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
+
 import { Input, Avatar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
 import firebase from "firebase";
 import { db } from "../firebase";
 
@@ -62,12 +66,9 @@ function Post(props) {
       {/* header -> avatar + username */}
 
       <img className="post__image" src={imageUrl} alt="" />
-      {/* image */}
-      {/* like comment  */}
       <h4 className="post__text">
         <span className="post__username">{username} </span> {caption}
       </h4>
-      {/* username + caption */}
 			{comments.map( (comment) => (
 				<p key={comment.timestamp} className="post__comments"><span className="post__username">{comment.username}</span> {comment.text}</p>
 			))}
