@@ -74,8 +74,6 @@ console.log('iran')
         />
         <h3 className="post__username">{username}</h3>
       </div>
-      {/* header -> avatar + username */}
-
       <img className="post__image" src={imageUrl} alt="" />
       <div className="post__icons">
         {checkForLike() ? (
@@ -90,6 +88,9 @@ console.log('iran')
         )}
         <ChatBubbleOutlineIcon className="post__icon" />
         <ShareOutlinedIcon className="post__icon" />
+      </div>
+      <div style={{ justifyItems: "start"}}>
+        {likes.length} likes
       </div>
       <h4 className="post__text">
         <span className="post__username">{username} </span> {caption}
