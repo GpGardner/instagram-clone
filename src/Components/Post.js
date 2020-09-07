@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
+import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import firebase from "firebase";
 import { db } from "../firebase";
 
@@ -17,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Post(props) {
-  const { imageUrl, username, caption, postId, user } = props;
+  const { imageUrl, username, caption, postId, user, likes } = props;
   const classes = useStyles();
 
   const [comments, setComments] = useState([]);
   const [addComment, setAddComment] = useState("");
-  const [postLiked, setPostLiked] = useState(false);
+
+
 
   useEffect(() => {
     let unsubscribe;
@@ -41,6 +42,7 @@ function Post(props) {
     };
   }, [postId]);
 
+
   const postComment = (e) => {
     e.preventDefault();
 
@@ -52,6 +54,15 @@ function Post(props) {
     setAddComment("");
     console.log("this does run");
   };
+
+  const checkForLike = () => {
+console.log('iran')
+
+    if(user) {
+      return likes.includes(user.displayName);
+    }
+    return false;
+  }
 
   return (
     <div className="post">
@@ -67,19 +78,17 @@ function Post(props) {
 
       <img className="post__image" src={imageUrl} alt="" />
       <div className="post__icons">
-        {postLiked ? (
+        {checkForLike() ? (
           <FavoriteIcon
             className="post__icon"
-            onClick={() => setPostLiked(false)}
-            style={{ color: 'red' }}
+            style={{ color: "red" }}
           />
         ) : (
           <FavoriteBorderIcon
             className="post__icon"
-            onClick={() => setPostLiked(true)}
           />
         )}
-        <ChatBubbleOutlineIcon className="post__icon"/>
+        <ChatBubbleOutlineIcon className="post__icon" />
         <ShareOutlinedIcon className="post__icon" />
       </div>
       <h4 className="post__text">
